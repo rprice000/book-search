@@ -20,20 +20,20 @@ This application was created to allow users to create an account, serach any boo
 
 ## Installation
 Root Directory Run the following:
-npm install
-npm i apollo-server-express graphql
-npm i concurrently
+- npm install
+- npm i apollo-server-express graphql
+- npm i concurrently
 
 
 Server Directory run the following:
-npm i apollo-server-express graphql
-npm i bycrypt
-npm i jsonwebtoken
-npm install mongodb
+- npm i apollo-server-express graphql
+- npm i bycrypt
+- npm i jsonwebtoken
+- npm install mongodb
 
 Client Directoyr run the following:
-npm create-react-app
-npm i @apollo/client graphql
+- npm create-react-app
+- npm i @apollo/client graphql
 
 ## Technologies
 - React.js
