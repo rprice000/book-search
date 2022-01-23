@@ -1,5 +1,7 @@
 // import React, { useState, useEffect } from 'react';
+//import React, { useState } from 'react';
 import React from 'react';
+
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
 // import { getMe, deleteBook } from '../utils/API';
@@ -16,7 +18,10 @@ const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
   const userData = data?.me || {};
-  
+
+  // const userDataLength = Object.keys(userData).length;
+  // const[userData, setData] = useState(loading ? null : data.me);
+
   // const [userData, setUserData] = useState({});
 
   // Take out lines 21 - 47
@@ -49,12 +54,14 @@ const SavedBooks = () => {
   // }, [userDataLength]);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
+  ///===============
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
       return false;
     }
+  ////========
 
   //   try {
   //     const response = await deleteBook(bookId, token);
@@ -76,27 +83,25 @@ const SavedBooks = () => {
   // if (!userDataLength) {
   //   return <h2>LOADING...</h2>;
   // }
+///=================
+try {
+  await removeBook({ variables: { bookId: bookId } });
 
-  try {
-    await removeBook({
-      variables: { bookId },
-    });
-
-    if (error) {
-      throw new Error("Something went wrong!");
-    }
-
-    // upon success, remove book's id from localStorage
-    removeBookId(bookId);
-  } catch (err) {
-    console.error(err);
-  }
+  // upon success, remove book's id from localStorage
+  removeBookId(bookId);
+} catch (err) {
+  console.error(err);
+}
 };
+
 
 // if data isn't here yet, say so
 if (loading) {
   return <h2>LOADING...</h2>;
 }
+///===========
+
+
 
   return (
     <>
