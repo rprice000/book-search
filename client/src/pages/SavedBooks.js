@@ -15,7 +15,9 @@ import { useMutation, useQuery } from "@apollo/client";
 const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
-  const [userData, setUserData] = useState({});
+  const userData = data?.me || {};
+  
+  // const [userData, setUserData] = useState({});
 
   // Take out lines 21 - 47
   // use this to determine if `useEffect()` hook needs to run again
@@ -54,26 +56,47 @@ const SavedBooks = () => {
       return false;
     }
 
-    try {
-      const response = await deleteBook(bookId, token);
+  //   try {
+  //     const response = await deleteBook(bookId, token);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('something went wrong!');
+  //     }
 
-      const updatedUser = await response.json();
-      setUserData(updatedUser);
-      // upon success, remove book's id from localStorage
-      removeBookId(bookId);
-    } catch (err) {
-      console.error(err);
+  //     const updatedUser = await response.json();
+  //     setUserData(updatedUser);
+  //     // upon success, remove book's id from localStorage
+  //     removeBookId(bookId);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  // // if data isn't here yet, say so
+  // if (!userDataLength) {
+  //   return <h2>LOADING...</h2>;
+  // }
+
+  try {
+    await removeBook({
+      variables: { bookId },
+    });
+
+    if (error) {
+      throw new Error("Something went wrong!");
     }
-  };
 
-  // if data isn't here yet, say so
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
+    // upon success, remove book's id from localStorage
+    removeBookId(bookId);
+  } catch (err) {
+    console.error(err);
   }
+};
+
+// if data isn't here yet, say so
+if (loading) {
+  return <h2>LOADING...</h2>;
+}
 
   return (
     <>
