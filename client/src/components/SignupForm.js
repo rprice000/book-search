@@ -16,6 +16,8 @@ const SignupForm = () => {
 
   const [addUser, { error }] = useMutation(ADD_USER);
 
+  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -36,9 +38,9 @@ const SignupForm = () => {
         variables: { ...userFormData },
       });
 
-      // if (error) {
-      //   throw new Error("something went wrong!");
-      // }
+      if (error) {
+        throw new Error("something went wrong!");
+      }
 
       console.log(error);
       Auth.login(data.addUser.token);
