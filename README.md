@@ -58,7 +58,7 @@ GitHub Repo
 https://github.com/rprice000/book-search
 
 Deployed Github Page
-http://rprice000.github.io/react-portfolio
+
 
 
 ## Version
